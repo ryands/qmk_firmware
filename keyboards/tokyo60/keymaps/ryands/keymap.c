@@ -1,7 +1,11 @@
 #include QMK_KEYBOARD_H
 
-#define BL 0
-#define FN 1
+enum keyboard_layers {
+    BL,
+    FN,
+    CL
+};
+
 /*
  * Default HHKB Layout
  */
@@ -46,7 +50,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS, KC_TRNS,                   KC_TRNS,                         KC_TRNS, KC_TRNS ),
 };
 
+const rgblight_segment_t PROGMEM layer_leds_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, HSV_CYAN}
+);
+
+const rgblight_segment_t PROGMEM layer_leds_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, HSV_GREEN}
+);
+
+const  rgblight_segment_t PROGMEM layer_leds_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, HSV_BLUE}
+);
+
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    layer_leds_base_layer,
+    layer_leds_fn_layer,
+    layer_leds_capslock_layer
+);
+
 void keyboard_post_init_user(void) {
-    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_sethsv(HSV_GREEN);
+    rgblight_layers = rgb_layers;
+    rgblight_set_layer_state(BL, true);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(BL, layer_state_cmp(state, BL));
+    rgblight_set_layer_state(FN, layer_state_cmp(state, FN));
+    return state;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(CL, led_state.caps_lock);
+    return true;
 }

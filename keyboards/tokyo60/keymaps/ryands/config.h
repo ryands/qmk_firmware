@@ -1,4 +1,4 @@
 #pragma once
 
-// #define RGBLIGHT_LAYERS
+#define RGBLIGHT_LAYERS
 
