@@ -50,22 +50,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS, KC_TRNS,                   KC_TRNS,                         KC_TRNS, KC_TRNS ),
 };
 
-const rgblight_segment_t PROGMEM layer_leds_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_CYAN}
+#define COLOR_BL HSV_CYAN
+#define COLOR_FN HSV_BLUE
+#define COLOR_CL HSV_PURPLE
+
+const rgblight_segment_t PROGMEM layer_leds_base[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, COLOR_BL}
 );
 
-const rgblight_segment_t PROGMEM layer_leds_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_GREEN}
+const rgblight_segment_t PROGMEM layer_leds_fn[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, COLOR_FN}
 );
 
-const  rgblight_segment_t PROGMEM layer_leds_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_BLUE}
+const  rgblight_segment_t PROGMEM layer_leds_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, RGBLED_NUM, COLOR_CL}
 );
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    layer_leds_base_layer,
-    layer_leds_fn_layer,
-    layer_leds_capslock_layer
+    layer_leds_base,
+    layer_leds_fn,
+    layer_leds_capslock
 );
 
 void keyboard_post_init_user(void) {
