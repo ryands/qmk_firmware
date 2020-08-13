@@ -50,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS, KC_TRNS,                   KC_TRNS,                         KC_TRNS, KC_TRNS ),
 };
 
-#define COLOR_BL HSV_CYAN
-#define COLOR_FN HSV_BLUE
-#define COLOR_CL HSV_PURPLE
+#define COLOR_BL HSV_BLUE
+#define COLOR_FN HSV_RED
+#define COLOR_CL HSV_GREEN
 
 const rgblight_segment_t PROGMEM layer_leds_base[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, RGBLED_NUM, COLOR_BL}
